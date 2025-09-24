@@ -1,21 +1,40 @@
 # Instrukcije za pokretanje
 
-1. Pokrenite lokalni PHP server komandom:
+1. Kreirati lokalne docker containere:
 
    ```bash
-   php -S localhost:8000 -t public/ public/router.php
+   make build
    ```
 
-2. Migrirajte bazu podataka:
+2. Pokrenuti docker containere:
+
+   ```bash
+   make up
+   ```
+
+3. Kreirati lokalni `.env` file dupliranjem postojećeg `.env.dist`:
+
+   ```bash
+   cp project/.env.dist project/.env
+   ```
+
+   Po potrebi, izmenite `.env` fajl da odgovara vašim podešavanjima baze
+
+4. Migrirajte bazu podataka:
 
    - Baza se nalazi u fajlu `cmsrelof_dump.sql`.
-   - Importujte ovu SQL dump datoteku u vašu MySQL bazu podataka, na primer koristeći:
+   - Logujte se na mysql container sa
+      ```bash
+      make mysqlsh
+      ```
+   - Importujte ovu SQL dump datoteku u vašu MySQL bazu podataka, koristeći:
 
      ```bash
-     mysql -u korisnik -p naziv_baze < cmsrelof_dump.sql
+     mysql -u root -p relof3 < cmsrelof_dump.sql
      ```
+     Pocetna sifra za mysql server je takodje 'root'
 
-3. Izmenite `.env` fajl da odgovara vašim podešavanjima baze
+
 
 ## Arhitektura sistema
 
